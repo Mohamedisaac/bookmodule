@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Comprehensive Guides - Homepage</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="flex flex-col">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-600 to-teal-700 text-white p-6 shadow-lg rounded-b-lg">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl font-extrabold mb-2">Welcome to Our Guides</h1>
+            <p class="text-lg opacity-90">Explore our collection of comprehensive guides on various topics.</p>
+        </div>
+    </header>
+
+    <!-- Main Content - Guide Cards Container -->
+    <main class="flex-1 container mx-auto p-6 md:p-8">
+        <section id="guides-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Guide cards will be dynamically injected here by JavaScript -->
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 text-center mt-auto rounded-t-lg shadow-inner">
+        <p>&copy; 2025 Our Guides. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Data for your guides. Add more objects to this array to add more guide cards.
+        const guidesData = [
+            {
+                id: 'main-guide',
+                title: 'Our Comprehensive Guide',
+                description: 'Get started with an overview of how to use this comprehensive resource and what to expect.',
+                fileName: 'guide.html', // The HTML file for this guide
+                initialPageId: 'intro' // The ID of the initial page to load in the guide
+            }
+            // Add more guide objects here in the future:
+            // {
+            //     id: 'another-guide',
+            //     title: 'Advanced Development Practices',
+            //     description: 'Dive deep into advanced topics and best practices for developers.',
+            //     fileName: 'advanced-guide.html',
+            //     initialPageId: 'introduction'
+            // }
+        ];
+
+        // Get the container where guide cards will be placed
+        const guidesContainer = document.getElementById('guides-container');
+
+        /**
+         * Dynamically generates and appends guide cards to the homepage.
+         */
+        function renderGuideCards() {
+            guidesContainer.innerHTML = ''; // Clear existing content
+
+            guidesData.forEach(guide => {
+                const cardLink = document.createElement('a');
+                cardLink.href = `${guide.fileName}#${guide.initialPageId}`; // Link to the guide file with initial hash
+                cardLink.classList.add(
+                    'card', 'block', 'bg-white', 'p-6', 'rounded-lg', 'shadow-md',
+                    'hover:shadow-xl', 'hover:border-blue-500', 'border', 'border-transparent',
+                    'flex', 'flex-col', 'justify-between' // Added for better vertical alignment
+                );
+
+                cardLink.innerHTML = `
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-3">${guide.title}</h2>
+                        <p class="text-gray-600">${guide.description}</p>
+                    </div>
+                    <div class="mt-4 text-blue-600 font-semibold flex items-center">
+                        Read More
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                `;
+                guidesContainer.appendChild(cardLink);
+            });
+        }
+
+        // Render cards when the page loads
+        document.addEventListener('DOMContentLoaded', renderGuideCards);
+    </script>
+</body>
+</html>
